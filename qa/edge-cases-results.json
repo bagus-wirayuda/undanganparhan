@@ -1,0 +1,305 @@
+{
+  "results": [
+    {
+      "name": "small-long-name",
+      "cover": {
+        "viewport": {
+          "width": 320,
+          "height": 568
+        },
+        "documentWidth": 320,
+        "guest": "<img src=x onerror=\"window.__xss=1\"> Bagus Wirayuda beserta keluarga besar yang berbahagia <img src=x onerror=\"window.__",
+        "guestChildren": 0,
+        "xss": false,
+        "button": {
+          "x": 47.8046875,
+          "y": 483.40625,
+          "width": 224.390625,
+          "height": 39,
+          "top": 483.40625,
+          "right": 272.1953125,
+          "bottom": 522.40625,
+          "left": 47.8046875
+        },
+        "guestCard": {
+          "x": 28.8046875,
+          "y": 276.234375,
+          "width": 262.390625,
+          "height": 274.765625,
+          "top": 276.234375,
+          "right": 291.1953125,
+          "bottom": 551,
+          "left": 28.8046875
+        },
+        "couple": {
+          "x": 100.1015625,
+          "y": 220.40625,
+          "width": 119.796875,
+          "height": 179.796875,
+          "top": 220.40625,
+          "right": 219.8984375,
+          "bottom": 400.203125,
+          "left": 100.1015625
+        },
+        "heading": {
+          "x": 16,
+          "y": 98.59375,
+          "width": 288,
+          "height": 90.046875,
+          "top": 98.59375,
+          "right": 304,
+          "bottom": 188.640625,
+          "left": 16
+        },
+        "buttonWithinViewport": true,
+        "buttonHit": true,
+        "focusable": [
+          "open-invitation"
+        ]
+      },
+      "open": {
+        "open": true,
+        "hidden": true,
+        "inert": false,
+        "focus": "main-title",
+        "hiddenReveals": 0,
+        "documentWidth": 320,
+        "viewport": 320
+      },
+      "errors": []
+    },
+    {
+      "name": "mobile-long-name",
+      "cover": {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "documentWidth": 390,
+        "guest": "<img src=x onerror=\"window.__xss=1\"> Bagus Wirayuda beserta keluarga besar yang berbahagia <img src=x onerror=\"window.__",
+        "guestChildren": 0,
+        "xss": false,
+        "button": {
+          "x": 58,
+          "y": 717.203125,
+          "width": 274,
+          "height": 43,
+          "top": 717.203125,
+          "right": 332,
+          "bottom": 760.203125,
+          "left": 58
+        },
+        "guestCard": {
+          "x": 39,
+          "y": 476.6875,
+          "width": 312,
+          "height": 320.90625,
+          "top": 476.6875,
+          "right": 351,
+          "bottom": 797.59375,
+          "left": 39
+        },
+        "couple": {
+          "x": 102.2109375,
+          "y": 316.515625,
+          "width": 185.578125,
+          "height": 278.515625,
+          "top": 316.515625,
+          "right": 287.7890625,
+          "bottom": 595.03125,
+          "left": 102.2109375
+        },
+        "heading": {
+          "x": 19.5,
+          "y": 168.796875,
+          "width": 351,
+          "height": 107.75,
+          "top": 168.796875,
+          "right": 370.5,
+          "bottom": 276.546875,
+          "left": 19.5
+        },
+        "buttonWithinViewport": true,
+        "buttonHit": true,
+        "focusable": [
+          "open-invitation"
+        ]
+      },
+      "open": {
+        "open": true,
+        "hidden": true,
+        "inert": false,
+        "focus": "main-title",
+        "hiddenReveals": 0,
+        "documentWidth": 390,
+        "viewport": 390
+      },
+      "errors": []
+    },
+    {
+      "name": "large-mobile-long-name",
+      "cover": {
+        "viewport": {
+          "width": 430,
+          "height": 932
+        },
+        "documentWidth": 430,
+        "guest": "<img src=x onerror=\"window.__xss=1\"> Bagus Wirayuda beserta keluarga besar yang berbahagia <img src=x onerror=\"window.__",
+        "guestChildren": 0,
+        "xss": false,
+        "button": {
+          "x": 62,
+          "y": 800.359375,
+          "width": 306,
+          "height": 43,
+          "top": 800.359375,
+          "right": 368,
+          "bottom": 843.359375,
+          "left": 62
+        },
+        "guestCard": {
+          "x": 43,
+          "y": 591.03125,
+          "width": 344,
+          "height": 289.71875,
+          "top": 591.03125,
+          "right": 387,
+          "bottom": 880.75,
+          "left": 43
+        },
+        "couple": {
+          "x": 112.53125,
+          "y": 349.515625,
+          "width": 204.9375,
+          "height": 307.546875,
+          "top": 349.515625,
+          "right": 317.46875,
+          "bottom": 657.0625,
+          "left": 112.53125
+        },
+        "heading": {
+          "x": 21.5,
+          "y": 186.390625,
+          "width": 387,
+          "height": 113.484375,
+          "top": 186.390625,
+          "right": 408.5,
+          "bottom": 299.875,
+          "left": 21.5
+        },
+        "buttonWithinViewport": true,
+        "buttonHit": true,
+        "focusable": [
+          "open-invitation"
+        ]
+      },
+      "open": {
+        "open": true,
+        "hidden": true,
+        "inert": false,
+        "focus": "main-title",
+        "hiddenReveals": 0,
+        "documentWidth": 430,
+        "viewport": 430
+      },
+      "errors": []
+    },
+    {
+      "name": "landscape",
+      "cover": {
+        "viewport": {
+          "width": 844,
+          "height": 390
+        },
+        "documentWidth": 844,
+        "guest": "Bpk. Bagus Wirayuda",
+        "guestChildren": 0,
+        "xss": false,
+        "button": {
+          "x": 451.5,
+          "y": 194.1953125,
+          "width": 200.1875,
+          "height": 39,
+          "top": 194.1953125,
+          "right": 651.6875,
+          "bottom": 233.1953125,
+          "left": 451.5
+        },
+        "guestCard": {
+          "x": 435.5,
+          "y": 130.0078125,
+          "width": 232.1875,
+          "height": 129.984375,
+          "top": 130.0078125,
+          "right": 667.6875,
+          "bottom": 259.9921875,
+          "left": 435.5
+        },
+        "couple": {
+          "x": 245.828125,
+          "y": 202.8125,
+          "width": 103.9375,
+          "height": 156,
+          "top": 202.8125,
+          "right": 349.765625,
+          "bottom": 358.8125,
+          "left": 245.828125
+        },
+        "heading": {
+          "x": 173.59375,
+          "y": 89.6875,
+          "width": 253.8125,
+          "height": 71.5,
+          "top": 89.6875,
+          "right": 427.40625,
+          "bottom": 161.1875,
+          "left": 173.59375
+        },
+        "buttonWithinViewport": true,
+        "buttonHit": true,
+        "focusable": [
+          "open-invitation"
+        ]
+      },
+      "open": {
+        "open": true,
+        "hidden": true,
+        "inert": false,
+        "focus": "main-title",
+        "hiddenReveals": 0,
+        "documentWidth": 844,
+        "viewport": 844
+      },
+      "errors": []
+    }
+  ],
+  "date": {
+    "before": {
+      "parts": [
+        "00",
+        "00",
+        "01",
+        "00"
+      ],
+      "label": "MENUJU HARI BAHAGIA"
+    },
+    "at": {
+      "parts": [
+        "00",
+        "00",
+        "00",
+        "00"
+      ],
+      "label": "Hari bahagia telah tiba"
+    },
+    "after": {
+      "parts": [
+        "00",
+        "00",
+        "00",
+        "00"
+      ],
+      "label": "Terima kasih atas doa dan restunya"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Lili dan Parhan//Undangan Pernikahan//ID
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:lili-parhan-20261025@undangan.local
+DTSTAMP:20261014T092709Z
+DTSTART:20261025T020000Z
+SUMMARY:Akad Nikah Lili & Parhan
+LOCATION:Panjang Selatan\, Desa Labbo\, Kec. Tompobulu\, Kab. Bantaeng
+DESCRIPTION:Akad nikah Sulis Saputri (Lili) dan M. Parhan Pawis (Parhan).
+  Minggu\, 25 Oktober 2026\, pukul 10.00 WITA. Merupakan suatu kehormatan 
+ bagi kami atas kehadiran dan doa restu Anda.
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR

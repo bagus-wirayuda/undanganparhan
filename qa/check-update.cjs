@@ -1,0 +1,28 @@
+const {chromium}=require('C:/Users/BAGUS-WIRAYUDA/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const fs=require('fs'),path=require('path'),assert=require('assert');
+const fileURL=f=>'file:///'+path.resolve(f).replace(/\\/g,'/')+'?to=Bpk.%20Bagus%20Wirayuda';
+(async()=>{
+ const browser=await chromium.launch({headless:true,channel:'msedge'});
+ const p=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});
+ const errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(fileURL('index.html'));await p.click('#open-invitation');await p.waitForTimeout(250);
+ assert.equal(await p.locator('[data-gallery-item]').count(),3);
+ await p.locator('#galeri').scrollIntoViewIfNeeded();await p.waitForTimeout(300);await p.locator('#galeri').screenshot({path:'qa/update-gallery-mobile.png'});
+ const thumbnails=p.locator('[data-gallery-item]');await thumbnails.first().click();assert(await p.locator('#gallery-dialog').evaluate(d=>d.open));
+ assert((await p.locator('#gallery-full').getAttribute('src')).includes('moment-01.webp'));
+ await p.screenshot({path:'qa/update-lightbox-mobile.png'});
+ await p.click('#gallery-next');assert((await p.locator('#gallery-full').getAttribute('src')).includes('moment-02.webp'));
+ await p.keyboard.press('ArrowRight');assert((await p.locator('#gallery-full').getAttribute('src')).includes('moment-03.webp'));
+ await p.click('#gallery-next');assert((await p.locator('#gallery-full').getAttribute('src')).includes('moment-01.webp'));
+ await p.keyboard.press('Escape');assert(!(await p.locator('#gallery-dialog').evaluate(d=>d.open)));assert(await thumbnails.first().evaluate(e=>e===document.activeElement));
+ await p.click('.dock a[href="#hadiah"]');await p.waitForTimeout(200);await p.locator('#hadiah').screenshot({path:'qa/update-gift-mobile.png'});
+ await p.evaluate(()=>{window.__copied='';Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.__copied=text}}})});
+ await p.click('#copy-account');assert.equal(await p.evaluate(()=>window.__copied),'901891764225');assert((await p.locator('#toast').innerText()).includes('berhasil'));
+ const dl=p.waitForEvent('download');await p.click('#save-date');await(await dl).saveAs('qa/update-event.ics');assert(fs.readFileSync('qa/update-event.ics','utf8').includes('DTSTART:20261025T030000Z'));
+ await p.setViewportSize({width:320,height:568});await p.locator('#hadiah').scrollIntoViewIfNeeded();await p.locator('#hadiah').screenshot({path:'qa/update-gift-small.png'});assert(await p.evaluate(()=>document.documentElement.scrollWidth===innerWidth));
+ await p.setViewportSize({width:1440,height:900});await p.locator('#galeri').scrollIntoViewIfNeeded();await p.screenshot({path:'qa/update-desktop.png'});assert(await p.evaluate(()=>document.documentElement.scrollWidth===innerWidth));
+ const single=await browser.newPage({viewport:{width:390,height:844},reducedMotion:'reduce'});single.on('pageerror',e=>errors.push(e.message));await single.route('http**/*',r=>r.abort());
+ await single.goto(fileURL('Undangan-Lili-Parhan.html'));await single.click('#open-invitation');await single.waitForTimeout(200);await single.locator('[data-gallery-item]').nth(2).click();assert((await single.locator('#gallery-full').getAttribute('src')).startsWith('data:image/webp;base64,'));assert(await single.locator('#gallery-full').evaluate(i=>i.complete&&i.naturalWidth>0));await single.click('#gallery-close');assert.equal(await single.locator('#account-number').innerText(),'901891764225');
+ const clock=await browser.newPage();await clock.clock.install({time:new Date('2026-10-25T02:59:00Z')});await clock.clock.pauseAt(new Date('2026-10-25T02:59:00Z'));await clock.goto(fileURL('index.html'));assert.equal(await clock.locator('[data-count="minutes"]').innerText(),'01');assert.equal(await clock.locator('[data-count="hours"]').innerText(),'00');
+ assert.deepEqual(errors,[]);console.log('PASS: three photos, full gallery navigation/Escape/focus, exact bank clipboard, 11 WITA calendar/countdown, 320/390/1440 layout, standalone offline gallery, zero JS errors.');await browser.close();
+})().catch(e=>{console.error(e);process.exit(1)});
