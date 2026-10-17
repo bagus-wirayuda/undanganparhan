@@ -1,7 +1,7 @@
 const fs=require('fs'),path=require('path');
 let html=fs.readFileSync('index.html','utf8');
 let css=fs.readFileSync('style.css','utf8');
-const mime={'.webp':'image/webp','.svg':'image/svg+xml','.ttf':'font/ttf'};
+const mime={'.webp':'image/webp','.svg':'image/svg+xml','.ttf':'font/ttf','.mp3':'audio/mpeg'};
 function data(file){return 'data:'+mime[path.extname(file)]+';base64,'+fs.readFileSync(file).toString('base64')}
 css=css.replace(/url\('([^']+)'\)/g,(_,file)=>'url("'+data(file)+'")');
 html=html.replace(/<link rel="preload"[^>]+>\s*/g,'').replace('<link rel="stylesheet" href="style.css">','<style>'+css+'</style>');
@@ -12,6 +12,6 @@ html=html.replace('<head>','<head>\n<!--\n'+fs.readFileSync('assets/FONT-LICENSE
 fs.writeFileSync('Undangan-Lili-Parhan.html',html);
 fs.mkdirSync('ready-to-upload/assets',{recursive:true});
 for(const file of ['index.html','style.css','script.js','README.md'])fs.copyFileSync(file,path.join('ready-to-upload',file));
-for(const file of ['moment-01.webp','moment-02.webp','moment-03.webp','garden.webp','couple.webp','cormorant-regular.ttf','cormorant-italic.ttf','manrope-regular.ttf','manrope-semibold.ttf','favicon.svg','FONT-LICENSES.txt','ARTWORK.md'])fs.copyFileSync(path.join('assets',file),path.join('ready-to-upload/assets',file));
+for(const file of ['wedding-song.mp3','moment-01.webp','moment-02.webp','moment-03.webp','garden.webp','couple.webp','cormorant-regular.ttf','cormorant-italic.ttf','manrope-regular.ttf','manrope-semibold.ttf','favicon.svg','FONT-LICENSES.txt','ARTWORK.md'])fs.copyFileSync(path.join('assets',file),path.join('ready-to-upload/assets',file));
 console.log('Standalone HTML: '+fs.statSync('Undangan-Lili-Parhan.html').size+' bytes. Ready to upload folder created.');
 

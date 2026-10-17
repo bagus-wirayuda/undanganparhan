@@ -36,6 +36,8 @@
   function openInvitation() {
     if (opening || body.classList.contains("is-open")) return;
     opening = true;
+    // Start inside this user gesture, before the transition timer, for mobile browsers.
+    startMusic();
     if (openButton) {
       openButton.disabled = true;
       openButton.setAttribute("aria-expanded", "true");
@@ -298,120 +300,78 @@
     $$(".reveal").forEach((element) => element.classList.add("is-visible"));
   }
 
-  // A quiet, original pentatonic composition. Audio starts only with the music button.
+  // A single native player preserves the song position when paused and resumed.
   const musicButton = $("#music-toggle");
-  let audioContext;
-  let musicGain;
-  let musicFilter;
-  let musicPlaying = false;
-  let musicStarting = false;
-  let noteTimer;
-  let nextNoteTime = 0;
-  let noteIndex = 0;
-  const melody = [74, 78, 81, 85, 81, 78, 76, 74, 69, 74, 78, 81, 78, 76, 74, null];
+  const weddingAudio = $("#wedding-audio");
+  let musicPlayPending = false;
+  let musicAttempt = 0;
 
   function updateMusicUI() {
     if (!musicButton) return;
+    const musicPlaying = Boolean(weddingAudio && !weddingAudio.paused && !weddingAudio.ended && !weddingAudio.error);
+    const label = musicPlaying ? "Jeda lagu" : "Putar lagu";
     musicButton.setAttribute("aria-pressed", String(musicPlaying));
-    musicButton.setAttribute("aria-label", musicPlaying ? "Jeda musik" : "Putar musik");
+    musicButton.setAttribute("aria-label", label);
+    musicButton.title = label;
     musicButton.classList.toggle("is-playing", musicPlaying);
     const status = $("#music-status");
-    if (status) status.textContent = musicPlaying ? "Musik aktif" : "Putar musik";
+    if (status) status.textContent = label;
   }
 
-  function playNote(midi, time, duration, amplitude = 0.2) {
-    if (midi === null) return;
-    const oscillator = audioContext.createOscillator();
-    const overtone = audioContext.createOscillator();
-    const envelope = audioContext.createGain();
-    const harmonic = audioContext.createGain();
-    const frequency = 440 * Math.pow(2, (midi - 69) / 12);
-    oscillator.type = "sine";
-    oscillator.frequency.value = frequency;
-    overtone.type = "sine";
-    overtone.frequency.value = frequency * 2;
-    harmonic.gain.value = 0.06;
-    envelope.gain.setValueAtTime(0.0001, time);
-    envelope.gain.exponentialRampToValueAtTime(amplitude, time + 0.035);
-    envelope.gain.exponentialRampToValueAtTime(0.0001, time + duration);
-    oscillator.connect(envelope);
-    overtone.connect(harmonic);
-    harmonic.connect(envelope);
-    envelope.connect(musicFilter);
-    oscillator.start(time);
-    overtone.start(time);
-    oscillator.stop(time + duration + 0.1);
-    overtone.stop(time + duration + 0.1);
-    oscillator.onended = () => { oscillator.disconnect(); envelope.disconnect(); };
-    overtone.onended = () => { overtone.disconnect(); harmonic.disconnect(); };
+  function pauseMusic() {
+    musicAttempt += 1;
+    musicPlayPending = false;
+    weddingAudio?.pause();
+    updateMusicUI();
   }
 
-  function scheduleMusic() {
-    if (!musicPlaying || !audioContext || audioContext.state !== "running") return;
-    while (nextNoteTime < audioContext.currentTime + 0.3) {
-      playNote(melody[noteIndex % melody.length], nextNoteTime, 3.2, 0.18);
-      if (noteIndex % 4 === 0) {
-        const base = [50, 55, 57, 55][Math.floor(noteIndex / 4) % 4];
-        [base, base + 7, base + 12].forEach((note, index) => playNote(note, nextNoteTime + index * 0.12, 4.8, 0.055));
-      }
-      nextNoteTime += 0.85;
-      noteIndex += 1;
-    }
-  }
-
-  async function toggleMusic() {
-    if (musicStarting) return;
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) {
-      toast("Browser ini belum mendukung musik. Undangan tetap dapat dinikmati.");
+  function startMusic() {
+    if (!weddingAudio) {
+      toast("Lagu belum tersedia. Undangan tetap dapat dibuka.");
       return;
     }
-    if (musicPlaying) {
-      musicPlaying = false;
-      clearInterval(noteTimer);
-      musicGain.gain.cancelScheduledValues(audioContext.currentTime);
-      musicGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.12);
+    if (musicPlayPending || !weddingAudio.paused) {
       updateMusicUI();
       return;
     }
-    musicStarting = true;
+    const attempt = ++musicAttempt;
+    musicPlayPending = true;
+    const playbackFailed = (error) => {
+      if (attempt !== musicAttempt) return;
+      musicPlayPending = false;
+      updateMusicUI();
+      // A quick pause cancels playback intentionally; the player remains ready to retry.
+      if (error?.name !== "AbortError") {
+        toast("Lagu belum dapat diputar. Sentuh tombol Putar lagu untuk mencoba lagi.");
+      }
+    };
     try {
-      if (!audioContext) {
-        audioContext = new AudioContextClass();
-        musicGain = audioContext.createGain();
-        musicFilter = audioContext.createBiquadFilter();
-        musicFilter.type = "lowpass";
-        musicFilter.frequency.value = 3200;
-        const delay = audioContext.createDelay(2);
-        const feedback = audioContext.createGain();
-        const wet = audioContext.createGain();
-        delay.delayTime.value = 0.43;
-        feedback.gain.value = 0.28;
-        wet.gain.value = 0.18;
-        musicFilter.connect(musicGain);
-        musicFilter.connect(delay);
-        delay.connect(feedback);
-        feedback.connect(delay);
-        delay.connect(wet);
-        wet.connect(musicGain);
-        musicGain.gain.value = 0;
-        musicGain.connect(audioContext.destination);
-      }
-      await audioContext.resume();
-      musicPlaying = true;
-      musicGain.gain.setTargetAtTime(0.32, audioContext.currentTime, 0.2);
-      nextNoteTime = audioContext.currentTime + 0.08;
-      scheduleMusic();
-      noteTimer = setInterval(scheduleMusic, 120);
+      const playback = weddingAudio.play();
       updateMusicUI();
-    } catch (_) {
-      musicPlaying = false;
-      updateMusicUI();
-      toast("Musik belum dapat diputar. Coba sentuh tombol musik kembali.");
-    } finally {
-      musicStarting = false;
+      Promise.resolve(playback).then(() => {
+        if (attempt !== musicAttempt) return;
+        musicPlayPending = false;
+        updateMusicUI();
+      }).catch(playbackFailed);
+    } catch (error) {
+      playbackFailed(error);
     }
   }
+
+  function toggleMusic() {
+    if (musicPlayPending || (weddingAudio && !weddingAudio.paused)) pauseMusic();
+    else startMusic();
+  }
+
+  ["play", "playing", "pause", "ended", "emptied"].forEach((eventName) => {
+    weddingAudio?.addEventListener(eventName, updateMusicUI);
+  });
+  weddingAudio?.addEventListener("error", () => {
+    pauseMusic();
+    if (opening || body.classList.contains("is-open")) {
+      toast("Lagu belum dapat dimuat. Sentuh tombol Putar lagu untuk mencoba lagi.");
+    }
+  });
   musicButton?.addEventListener("click", toggleMusic);
   updateMusicUI();
 
@@ -506,17 +466,6 @@
   document.addEventListener("visibilitychange", () => {
     updateCountdown();
     syncParticles();
-    if (!audioContext || !musicPlaying) return;
-    if (document.hidden) {
-      clearInterval(noteTimer);
-      audioContext.suspend().catch(() => {});
-    } else {
-      audioContext.resume().then(() => {
-        nextNoteTime = audioContext.currentTime + 0.08;
-        clearInterval(noteTimer);
-        noteTimer = setInterval(scheduleMusic, 120);
-      }).catch(() => {});
-    }
   });
 
   if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
@@ -536,7 +485,7 @@
 
   window.addEventListener("pagehide", () => {
     clearInterval(countdownTimer);
-    clearInterval(noteTimer);
+    pauseMusic();
     if (animationFrame !== undefined) cancelAnimationFrame(animationFrame);
   });
   window.addEventListener("pageshow", (event) => {

@@ -81,3 +81,11 @@
 @media(max-width:360px){.gallery-section .section-title{font-size:37px}.photo-grid{gap:11px}.photo-expand{right:10px;bottom:10px;width:29px;height:29px}.gift-card{padding:22px}.account-number{font-size:20px;letter-spacing:1.3px}.gift-card .button{font-size:10px;padding-left:12px;padding-right:12px}.gift-thanks{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.photo-button img{transition:none}.photo-button:hover img{transform:none}}
 #toast{max-width:min(330px,calc(100vw - 32px))}
+/* A labeled playback control remains visible as the invitation is explored. */
+.music-toggle{width:auto;min-width:108px;height:42px;min-height:42px;padding:0 13px;gap:8px;border-radius:24px;font-size:10px;line-height:1.4;font-weight:600;top:max(22px,env(safe-area-inset-top));background:#f8f4e5f2}
+.music-toggle .icon{width:14px;height:14px}
+.music-toggle>.music-icon-play{display:block;fill:currentColor;stroke-width:1}
+.music-toggle>.music-icon-pause{display:none;stroke-width:3}
+.music-toggle.is-playing>.music-icon-play{display:none}
+.music-toggle.is-playing>.music-icon-pause{display:block}
+#music-status{white-space:nowrap}

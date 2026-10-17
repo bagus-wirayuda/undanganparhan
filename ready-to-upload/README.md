@@ -29,6 +29,7 @@ Tombol lokasi membuka pencarian alamat Google Maps. Titik koordinat khusus tidak
 - `script.js`: nama tamu, transisi, hitung mundur, kalender, salin alamat dan rekening, galeri foto, musik, dan navigasi.
 - `assets/`: ilustrasi dan aset visual undangan.
 - `assets/moment-01.webp`, `assets/moment-02.webp`, dan `assets/moment-03.webp`: tiga foto pada galeri. Tekan foto untuk melihat ukuran penuh; gunakan tombol sebelumnya/berikutnya atau tombol panah keyboard, lalu Escape untuk menutup.
+- `assets/wedding-song.mp3`: lagu dari berkas MP3 yang diberikan, `ssstik.io_1792218815332 (1).mp3`.
 
 Jika tanggal acara diganti, sesuaikan teks dalam HTML, `weddingDate` pada JavaScript, dan nilai `DTSTART` kalender. Waktu sekarang menggunakan WITA (`+08:00`); tanggal akad dalam kalender adalah `20261025T030000Z` (25 Oktober 2026, pukul 11.00 WITA).
 
@@ -36,13 +37,13 @@ Jika tanggal acara diganti, sesuaikan teks dalam HTML, `weddingDate` pada JavaSc
 
 Bagian tanda kasih memuat rekening **SeaBank 901891764225**, atas nama **M. Parhan Pawis**. Tombol salin menyalin nomor rekening tanpa spasi. Jika rekening diubah, perbarui teks dalam HTML dan nomor pada penanganan tombol `#copy-account` di `script.js`.
 
-Musik adalah komposisi instrumental orisinal yang dibangkitkan oleh browser, tanpa berkas musik pihak ketiga. Musik hanya diputar setelah tamu menekan tombol musik. Animasi menghormati pengaturan pengurangan gerakan perangkat.
+Lagu mulai diputar saat tamu menekan **Buka Undangan** dan berulang selama undangan dibaca. Tombol **Jeda lagu** menghentikan sementara, sedangkan **Putar lagu** melanjutkan dari posisi terakhir. Jika browser belum mengizinkan pemutaran saat membuka undangan, tamu dapat mencoba lagi melalui tombol **Putar lagu**. Lagu memakai berkas MP3 lokal, sehingga tidak bergantung pada layanan musik eksternal. Animasi menghormati pengaturan pengurangan gerakan perangkat.
 
 Tombol berbagi dapat digunakan setelah situs diunggah ke hosting. Tautan yang dibagikan mempertahankan nama tamu pada URL. Undangan tidak memiliki layanan RSVP atau penyimpanan data tamu.
 
 ## Versi satu file
 
-`Undangan-Lili-Parhan.html` berisi seluruh CSS, JavaScript, font, dan ilustrasi di dalam satu file. Klik dua kali untuk membukanya. File ini dapat dipindahkan tanpa folder aset. Tombol peta tetap membutuhkan internet.
+`Undangan-Lili-Parhan.html` berisi seluruh CSS, JavaScript, font, ilustrasi, foto, dan lagu MP3 di dalam satu file. Klik dua kali untuk membukanya. File ini dapat dipindahkan tanpa folder aset dan lagu tetap tersedia secara lokal. Tombol peta tetap membutuhkan internet.
 
 Contoh nama tamu lokal: tambahkan `?to=Bpk.%20Bagus%20Wirayuda` setelah `.html` pada bilah alamat browser. Saat diunggah, gunakan `https://alamat-anda.com/?to=Bpk.%20Bagus%20Wirayuda` untuk versi index, atau `https://alamat-anda.com/Undangan-Lili-Parhan.html?to=Bpk.%20Bagus%20Wirayuda` untuk versi satu file.
 

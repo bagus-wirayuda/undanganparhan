@@ -308,10 +308,12 @@
     </dialog>
 
     <canvas id="petals" aria-hidden="true"></canvas>
-    <button id="music-toggle" class="music-toggle" type="button" aria-label="Nyalakan musik" aria-pressed="false"><svg
-        class="icon">
-        <use href="#i-music" />
-      </svg><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <audio id="wedding-audio" src="assets/wedding-song.mp3" preload="metadata" loop hidden></audio>
+    <button id="music-toggle" class="music-toggle" type="button" aria-label="Putar lagu" title="Putar lagu" aria-pressed="false" aria-controls="wedding-audio">
+      <svg class="icon music-icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7Z"/></svg>
+      <svg class="icon music-icon-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+      <span id="music-status">Putar lagu</span>
+    </button>
     <nav class="dock" aria-label="Navigasi undangan"><a href="#home" class="is-active" aria-current="location"><svg
           class="icon">
           <use href="#i-home" />

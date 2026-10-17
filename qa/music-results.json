@@ -1,0 +1,21 @@
+[
+  {
+    "file": "index.html",
+    "duration": 65.776327,
+    "loop": true,
+    "ready": 4,
+    "embedded": false,
+    "verified": "no sound before opening, actual MP3 playback on opening, pause/resume position, rapid toggle, zero errors"
+  },
+  {
+    "file": "Undangan-Lili-Parhan.html",
+    "duration": 65.776327,
+    "loop": true,
+    "ready": 4,
+    "embedded": true,
+    "verified": "no sound before opening, actual MP3 playback on opening, pause/resume position, rapid toggle, zero errors"
+  },
+  {
+    "verified": "blocked autoplay leaves opening working; manual play retry succeeds at 320px"
+  }
+]
